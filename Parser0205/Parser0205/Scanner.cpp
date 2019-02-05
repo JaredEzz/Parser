@@ -149,16 +149,13 @@ void Scanner::print(ofstream &file_out)
 		t = typeToString(tokenDatabase.at(i).getType());
 		cout << "(" << t << +",\"" << tokenDatabase.at(i).getData() << +"\"," << tokenDatabase.at(i).getLine() << +")" << endl;
 	}
-	
-	if (error == false)
-	{
-		cout << "Total Tokens = " << tokenDatabase.size() << endl;
-	}
-	else
-	{
-		printError(errorLineNumber, file_out);
-		tokenDatabase.clear();
-	}
+
+    if (!error) {
+        printError(errorLineNumber, file_out);
+        tokenDatabase.clear();
+    } else {
+        cout << "Total Tokens = " << tokenDatabase.size() << endl;
+    }
 }
 
 void Scanner::isString(string s, ifstream&in)
@@ -210,7 +207,7 @@ void Scanner::isColon(string s, ifstream &in)
 
 void Scanner::printError(int l, ofstream &file_out)
 {
-	if (error == true)
+	if (error)
 	{
 		cout << "Input Error on line " << l << endl;
 		tokenDatabase.clear();
@@ -311,7 +308,7 @@ bool Scanner::isQuoteColon(char value, string data, string temp, ifstream& in)
 
 void Scanner::isSpecial(string s)
 {
-	if (error == false) {
+	if (!error) {
 		string data = s;
 
 		if (data == "Schemes")
